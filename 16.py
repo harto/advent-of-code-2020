@@ -13,11 +13,8 @@ nearby_tickets = [[int(x) for x in line.split(',')]
 def satisfies(rule, value):
     return any(lower <= value <= upper for lower, upper in rule)
 
-error_rate = 0
-for ticket in nearby_tickets:
-    for value in ticket:
-        if not any(satisfies(rule, value) for rule in rules.values()):
-            error_rate += value
+error_rate = sum(value for ticket in nearby_tickets for value in ticket
+                 if not any(satisfies(rule, value) for rule in rules.values()))
 print(error_rate)
 
 ###
